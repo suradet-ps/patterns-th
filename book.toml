@@ -1,0 +1,33 @@
+[book]
+title = "Rust Design Patterns (ฉบับภาษาไทย)"
+authors = ["the rust-unofficial authors", "suradet-ps (ผู้แปล)"]
+description = "สารานุกรมดีไซน์แพตเทิร์น แอนติแพตเทิร์น และสำนวนในภาษา Rust ฉบับภาษาไทย"
+language = "th"
+src = "src"
+
+[build]
+create-missing = false
+
+[rust]
+edition = "2024"
+
+[output.html]
+smart-punctuation = true
+default-theme = "rust"
+site-url = "/patterns-th/"
+git-repository-url = "https://github.com/suradet-ps/patterns-th"
+edit-url-template = "https://github.com/suradet-ps/patterns-th/edit/main/src/{path}"
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.playground]
+editable = false
+
+# [output.linkcheck]  # enable the "mdbook-linkcheck" renderer, disabled due to gh-actions
+
+[output.html.redirect]
+# Redirects in the form of "old-path" = "new-path", where the new path
+# is relative to the old path.
+"functional/lenses.html" = "optics.html"
