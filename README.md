@@ -26,7 +26,7 @@ file-for-file, and the license travels with the text. Built for the
 Thai-speaking Rustacean:
 [suradet-ps.github.io/patterns-th](https://suradet-ps.github.io/patterns-th/).
 
-| แปลครบ 50 หน้า ▣ | Glossary ▣ | ลิงก์ 632/632 ▣ | Build ผ่าน ▣ |
+| 50 pages translated ▣ | Glossary ▣ | Links 632/632 ▣ | Build passing ▣ |
 |---|---|---|---|
 
 *v1.0.0 - translation, glossary, verification, and the static build
@@ -85,9 +85,8 @@ One stack, zero custom JS, several quiet helpers.
   with FFI idioms, 14 design pattern chapters, 3 anti-patterns, 3
   functional programming chapters, and the design principles - Thai
   prose over untouched code.
-- **Glossaries** - `GLOSSARY.md` locks the vocabulary (design pattern =
-  ดีไซน์แพตเทิร์น, ownership = ความเป็นเจ้าของ, borrow checker = borrow
-  checker), so chapter nine agrees with chapter two.
+- **Glossaries** - `GLOSSARY.md` locks the vocabulary (one term, one
+  spelling, everywhere), so chapter nine agrees with chapter two.
 - **Verifies** - `scripts/verify-translation.ps1` diffs every code
   block, heading level, and link target against upstream
   `rust-unofficial/patterns` - byte-exact or it does not pass.
@@ -116,10 +115,9 @@ One stack, zero custom JS, several quiet helpers.
 4. Build, verify, check. The book builds clean, the diff is
    byte-exact, and the anchors resolve.
 
-**The ceremony of the anchor** - mdbook slugs strip Thai tone marks
-(`ตัวอย่าง` becomes `ตัวอยาง`). Anchors are read from the built HTML,
-written into the source, and re-verified - a guessed anchor is a broken
-link waiting to happen.
+**The ceremony of the anchor** - mdbook slugs strip Thai tone marks.
+Anchors are read from the built HTML, written into the source, and
+re-verified - a guessed anchor is a broken link waiting to happen.
 
 **The ceremony of the code block** - a translated command that is not
 byte-identical to the original is a regression, not a translation.
@@ -154,8 +152,8 @@ link checker must report `ALL ANCHOR LINKS OK`.
 
 ```
   ─────────────────────────────────────────
-   ทุกแพตเทิร์นมีข้อแลกเปลี่ยนของมัน
-   ทุกหนังสือมีหน้าแรกของมัน
+   Every pattern has its trade-off
+   Every book has its first page
   ─────────────────────────────────────────
 ```
 
