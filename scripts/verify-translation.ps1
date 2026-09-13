@@ -62,6 +62,12 @@ function Get-InlineLinkTargets($path) {
     return @($rx.Matches($content) | ForEach-Object { $_.Groups[1].Value -replace '\s+$','' })
 }
 
+function Get-Autolinks($path) {
+    $content = Read-Normalized $path
+    $rx = [regex]'<(https?://[^>\s]+)>'
+    return @($rx.Matches($content) | ForEach-Object { $_.Groups[1].Value })
+}
+
 function Normalize-LinkTarget($url) {
     if ([string]::IsNullOrWhiteSpace($url)) {
         return ''
@@ -71,16 +77,21 @@ function Normalize-LinkTarget($url) {
     if ($trimmed.StartsWith('#')) {
         return '#anchor'
     }
-    # File link with in-page anchor (e.g. usage.md#regression-check vs usage.md#การตรวจสอบรีเกรสชัน)
-    if ($trimmed -match '^([^#]+)#(.+)$') {
+    # Relative file link with in-page anchor (e.g. usage.md#regression-check vs
+    # usage.md#การตรวจสอบรีเกรสชัน): the file part must match, the Thai anchor is
+    # verified separately by check-links.ps1.
+    if ($trimmed -notmatch '^[a-z][a-z0-9+.-]*:' -and $trimmed -match '^([^#]+)#(.+)$') {
         return $Matches[1]
     }
+    # External links keep their full URL, anchors included.
     return $trimmed
 }
 
 $origFiles = Get-ChildItem -Recurse -File $orig -Filter *.md
 $fail = 0
 $total = 0
+$blockCount = 0
+$linkCount = 0
 
 foreach ($f in $origFiles) {
     $rel = $f.FullName.Substring($orig.Length + 1)
@@ -94,6 +105,7 @@ foreach ($f in $origFiles) {
 
     $oc = Get-CodeBlocks $f.FullName
     $tc = Get-CodeBlocks $tPath
+    $blockCount += $oc.Count
     if ($oc.Count -ne $tc.Count) {
         Write-Output "[FAIL] $rel : code block count differs (orig=$($oc.Count) trans=$($tc.Count))"
         $fail++
@@ -124,6 +136,7 @@ foreach ($f in $origFiles) {
 
     $or = Get-RefLinks $f.FullName
     $tr = Get-RefLinks $tPath
+    $linkCount += $or.Count
     if ($or.Count -ne $tr.Count) {
         Write-Output "[FAIL] $rel : ref-link count differs (orig=$($or.Count) trans=$($tr.Count))"
         $fail++
@@ -140,17 +153,36 @@ foreach ($f in $origFiles) {
 
     $oi = @(Get-InlineLinkTargets $f.FullName | ForEach-Object { Normalize-LinkTarget $_ })
     $ti = @(Get-InlineLinkTargets $tPath | ForEach-Object { Normalize-LinkTarget $_ })
-    $os = $oi | Sort-Object -Unique
-    $ts = $ti | Sort-Object -Unique
-    $missing = @($os | Where-Object { $_ -notin $ts })
-    $extra = @($ts | Where-Object { $_ -notin $os })
-    if ($missing.Count -gt 0 -or $extra.Count -gt 0) {
-        Write-Output "[FAIL] $rel : inline link targets differ (missing=[$($missing -join ', ')] extra=[$($extra -join ', ')])"
+    $linkCount += $oi.Count
+    if ($oi.Count -ne $ti.Count) {
+        Write-Output "[FAIL] $rel : inline link count differs (orig=$($oi.Count) trans=$($ti.Count))"
         $fail++
+    } else {
+        for ($i = 0; $i -lt $oi.Count; $i++) {
+            if ($oi[$i] -cne $ti[$i]) {
+                Write-Output "[FAIL] $rel : inline link #$($i+1) target differs (orig='$($oi[$i])' trans='$($ti[$i])')"
+                $fail++
+            }
+        }
+    }
+
+    $oa = Get-Autolinks $f.FullName
+    $ta = Get-Autolinks $tPath
+    $linkCount += $oa.Count
+    if ($oa.Count -ne $ta.Count) {
+        Write-Output "[FAIL] $rel : autolink count differs (orig=$($oa.Count) trans=$($ta.Count))"
+        $fail++
+    } else {
+        for ($i = 0; $i -lt $oa.Count; $i++) {
+            if ($oa[$i] -cne $ta[$i]) {
+                Write-Output "[FAIL] $rel : autolink #$($i+1) differs (orig='$($oa[$i])' trans='$($ta[$i])')"
+                $fail++
+            }
+        }
     }
 }
 
 Write-Output "---"
-Write-Output "Checked $total files, $fail problem(s)"
+Write-Output "Checked $total files, $blockCount code blocks, $linkCount links, $fail problem(s)"
 if ($fail -eq 0) { Write-Output "ALL OK: code blocks, headings, links match 100%" }
 exit ($fail -gt 0)
