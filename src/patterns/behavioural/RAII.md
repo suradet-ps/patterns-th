@@ -6,7 +6,7 @@
 
 ## ตัวอย่าง
 
-การ์ดของ Mutex เป็นตัวอย่างคลาสสิกของแพตเทิร์นนี้จากไลบรารีมาตรฐาน (นี่คือเวอร์ชันอย่างย่อของการอิมพลีเมนต์จริง):
+การ์ด Mutex เป็นตัวอย่างคลาสสิกของแพตเทิร์นนี้จากไลบรารีมาตรฐาน (นี่คือเวอร์ชันอย่างย่อของการอิมพลีเมนต์จริง):
 
 ```rust,ignore
 use std::ops::Deref;
@@ -99,4 +99,4 @@ RAII เป็นแพตเทิร์นที่พบบ่อยใน C+
 [wikipedia]: https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization
 
 [Style guide entry](https://doc.rust-lang.org/1.0.0/style/ownership/raii.html)
-(ปัจจุบันเป็นเพียงที่วางไว้เฉยๆ)
+(ปัจจุบันเป็นเพียงที่ว่างไว้)

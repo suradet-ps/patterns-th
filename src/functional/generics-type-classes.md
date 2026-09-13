@@ -162,7 +162,7 @@ fn main() {
 }
 ```
 
-พวกเขาจะได้ syntax error ชนิด `FileDownloadRequest<Bootp>` ไม่อิมพลีเมนต์ `mount_point()` มีเพียงชนิด `FileDownloadRequest<Nfs>` เท่านั้นที่ทำได้ และแน่นอนว่ามันถูกสร้างโดยโมดูล NFS ไม่ใช่โมดูล BOOTP!
+พวกเขาจะได้ syntax error ชนิด `FileDownloadRequest<Bootp>` ไม่ได้อิมพลีเมนต์ `mount_point()` มีเพียงชนิด `FileDownloadRequest<Nfs>` เท่านั้นที่ทำได้ และแน่นอนว่ามันถูกสร้างโดยโมดูล NFS ไม่ใช่โมดูล BOOTP!
 
 ## ข้อดี
 

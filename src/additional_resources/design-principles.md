@@ -7,8 +7,8 @@
 ## [SOLID](https://en.wikipedia.org/wiki/SOLID)
 
 - [หลักความรับผิดชอบเดี่ยว (Single Responsibility Principle - SRP)](https://en.wikipedia.org/wiki/Single-responsibility_principle):
-  คลาสควรมีความรับผิดชอบเพียงอย่างเดียว นั่นคือ มีเพียงการเปลี่ยนแปลงในส่วน
-  เดียวของข้อกำหนดซอฟต์แวร์เท่านั้นที่ส่งผลต่อข้อกำหนดของคลาสได้
+  คลาสควรมีความรับผิดชอบเพียงอย่างเดียว นั่นคือ การเปลี่ยนแปลงในส่วนเดียวของ
+  ข้อกำหนดซอฟต์แวร์เท่านั้นที่ควรส่งผลต่อข้อกำหนดของคลาส
 - [หลักเปิด/ปิด (Open/Closed Principle - OCP)](https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle):
   "เอนทิตีของซอฟต์แวร์... ควรเปิดสำหรับการขยาย แต่ปิดสำหรับการแก้ไข"
 - [หลักการแทนที่ของลิสคอฟ (Liskov Substitution Principle - LSP)](https://en.wikipedia.org/wiki/Liskov_substitution_principle):
@@ -17,7 +17,7 @@
 - [หลักการแยกอินเทอร์เฟซ (Interface Segregation Principle - ISP)](https://en.wikipedia.org/wiki/Interface_segregation_principle):
   "อินเทอร์เฟซเฉพาะไคลเอนต์หลายตัวย่อมดีกว่าอินเทอร์เฟซเอนกประสงค์ตัวเดียว"
 - [หลักการผกผันการพึ่งพา (Dependency Inversion Principle - DIP)](https://en.wikipedia.org/wiki/Dependency_inversion_principle):
-  ควร "พึ่งพานามธรรม ไม่ใช่[สิ่งที่]เป็นรูปธรรม"
+  ควร "พึ่งพานามธรรม ไม่ใช่[สิ่ง]ที่เป็นรูปธรรม"
 
 ## [CRP (Composite Reuse Principle) หรือ การประกอบดีกว่าการสืบทอด](https://en.wikipedia.org/wiki/Composition_over_inheritance)
 
@@ -68,7 +68,7 @@ Construction
 
 ## Single-Choice
 
-"เมื่อใดที่ระบบซอฟต์แวร์ต้องรองรับชุดทางเลือกหนึ่ง โมดูลเพียงหนึ่งเดียวเท่านั้นในระบบที่ควรรู้รายการทางเลือกทั้งหมด" - Bertrand Meyer:
+"เมื่อใดที่ระบบซอฟต์แวร์ต้องรองรับชุดทางเลือกหนึ่ง ควรมีเพียงโมดูลเดียวในระบบที่รู้รายการทางเลือกทั้งหมด" - Bertrand Meyer:
 Object-Oriented Software Construction
 
 ## Persistence-Closure

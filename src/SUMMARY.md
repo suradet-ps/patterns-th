@@ -8,7 +8,7 @@
   - [คอนสตรัคเตอร์](./idioms/ctor.md)
   - [trait Default](./idioms/default.md)
   - [คอลเลกชันคือสมาร์ตพอยน์เตอร์](./idioms/deref.md)
-  - [การทำขั้นสุดท้ายในดรอป (Finalisation in Destructors)](./idioms/dtor-finally.md)
+  - [การทำขั้นสุดท้ายในเดสทรัคเตอร์ (Finalisation in Destructors)](./idioms/dtor-finally.md)
   - [`mem::{take(_), replace(_)}`](./idioms/mem-replace.md)
   - [ไดนามิกดิสแพตช์บนสแตก](./idioms/on-stack-dyn-dispatch.md)
   - [อินเทอร์เฟซฟังก์ชันต่างภาษา (FFI)](./idioms/ffi/intro.md)
