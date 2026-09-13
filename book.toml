@@ -16,7 +16,7 @@ smart-punctuation = true
 default-theme = "rust"
 site-url = "/patterns-th/"
 git-repository-url = "https://github.com/suradet-ps/patterns-th"
-edit-url-template = "https://github.com/suradet-ps/patterns-th/edit/main/src/{path}"
+edit-url-template = "https://github.com/suradet-ps/patterns-th/edit/main/{path}"
 
 [output.html.fold]
 enable = true
