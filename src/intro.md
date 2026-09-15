@@ -2,7 +2,7 @@
 
 ## การมีส่วนร่วม
 
-หากคุณสนใจร่วมมีส่วนร่วมในการพัฒนาหนังสือเล่มนี้ สามารถอ่านรายละเอียดได้ที่[แนวทางการมีส่วนร่วม](https://github.com/rust-unofficial/patterns/blob/master/CONTRIBUTING.md)
+หากคุณสนใจอยากมีส่วนร่วมในการพัฒนาหนังสือเล่มนี้ สามารถอ่านรายละเอียดได้ที่[แนวทางการมีส่วนร่วม](https://github.com/rust-unofficial/patterns/blob/master/CONTRIBUTING.md)
 
 ## ข่าวสาร
 
