@@ -2,12 +2,11 @@
 
 ## คำอธิบาย
 
-`Option` สามารถมองได้ว่าเป็นคอนเทนเนอร์ที่บรรจุสมาชิกศูนย์ตัวหรือหนึ่งตัว โดยเฉพาะอย่างยิ่ง มันอิมพลีเมนต์ trait `IntoIterator` จึงใช้งานกับโค้ดเจเนอริกที่ต้องการชนิดเช่นนี้ได้
+เราสามารถมอง `Option` เสมือนเป็น Container ที่บรรจุข้อมูลได้ 0 หรือ 1 ตัว โดยเฉพาะอย่างยิ่ง `Option` ได้อิมพลีเมนต์ trait `IntoIterator` ไว้อยู่แล้ว จึงสามารถนำไปใช้งานร่วมกับโค้ดเชิงเจเนอริกที่ต้องการ Iterator ได้อย่างแนบเนียน
 
 ## ตัวอย่าง
 
-เนื่องจาก `Option` อิมพลีเมนต์ `IntoIterator` จึงใช้เป็นอาร์กิวเมนต์ให้กับ
-[`.extend()`](https://doc.rust-lang.org/std/iter/trait.Extend.html#tymethod.extend) ได้:
+เนื่องจาก `Option` อิมพลีเมนต์ `IntoIterator` เราจึงสามารถส่งมันเป็นอาร์กิวเมนต์ให้กับเมท็อด [`.extend()`](https://doc.rust-lang.org/std/iter/trait.Extend.html#tymethod.extend) ได้โดยตรง:
 
 ```rust
 let turing = Some("Turing");
@@ -21,8 +20,7 @@ if let Some(turing_inner) = turing {
 }
 ```
 
-หากคุณต้องการต่อ `Option` เข้าไปท้าย iterator ที่มีอยู่แล้ว ส่งมันให้
-[`.chain()`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.chain) ได้:
+หากคุณต้องการต่อท้ายค่าจาก `Option` เข้ากับ Iterator ที่มีอยู่เดิม ก็สามารถส่งมันเข้าไปในเมท็อด [`.chain()`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.chain) ได้ทันที:
 
 ```rust
 let turing = Some("Turing");
@@ -33,23 +31,16 @@ for logician in logicians.iter().chain(turing.iter()) {
 }
 ```
 
-พึงสังเกตว่าหาก `Option` เป็น `Some` เสมอ การใช้
-[`std::iter::once`](https://doc.rust-lang.org/std/iter/fn.once.html) กับสมาชิกนั้นจะถือเป็นสำนวนมากกว่า
+ข้อสังเกต: หากแน่ใจว่าค่าใน `Option` นั้นมีค่าเป็น `Some` เสมอ การเลือกใช้ [`std::iter::once`](https://doc.rust-lang.org/std/iter/fn.once.html) เพื่อสร้าง Iterator สมาชิกเดี่ยว จะถือเป็นสำนวนการเขียนโค้ดที่ชัดเจนและตรงไปตรงมากว่า
 
-นอกจากนี้ เนื่องจาก `Option` อิมพลีเมนต์ `IntoIterator` เราจึงวนซ้ำบนมันด้วยลูป `for` ได้ ซึ่งเทียบเท่ากับการจับคู่ด้วย `if let Some(..)` แต่ในกรณีส่วนใหญ่คุณควรเลือกใช้แบบหลัง
+นอกจากนี้ การที่ `Option` อิมพลีเมนต์ `IntoIterator` ยังทำให้เราสามารถนำมันไปวนลูปด้วย `for` loop ได้ด้วย ซึ่งมีผลลัพธ์เทียบเท่ากับการเขียน `if let Some(..)` แต่ในบริบททั่วไปส่วนใหญ่ การเลือกใช้ `if let` จะอ่านง่ายและเป็นธรรมชาติกว่า
 
 ## ดูเพิ่มเติม
 
-- [`std::iter::once`](https://doc.rust-lang.org/std/iter/fn.once.html) เป็น
-  อิเทอเรเตอร์ที่ให้สมาชิกพอดีหนึ่งตัว เป็นทางเลือกที่อ่านง่ายกว่าสำหรับ
-  `Some(foo).into_iter()`
-
+- [`std::iter::once`](https://doc.rust-lang.org/std/iter/fn.once.html) ตัวสร้างอิเทอเรเตอร์ที่ให้สมาชิกเพียงตัวเดียวพอดี เป็นทางเลือกที่อ่านเข้าใจง่ายกว่าการเขียน `Some(foo).into_iter()`
 - [`Iterator::filter_map`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map)
-  เป็นเวอร์ชันของ
-  [`Iterator::map`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map)
-  ที่ปรับให้เหมาะกับการแมปฟังก์ชันซึ่งคืนค่า `Option`
-
-- ครีต [`ref_slice`](https://crates.io/crates/ref_slice) มีฟังก์ชันสำหรับ
-  แปลง `Option` เป็นสไลซ์ที่มีศูนย์หรือหนึ่งสมาชิก
-
+  เมท็อดดัดแปลงของ [`Iterator::map`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map)
+  ที่ออกแบบมาสำหรับฟังก์ชันที่ส่งคืนค่ากลับมาเป็น `Option`
+- crate [`ref_slice`](https://crates.io/crates/ref_slice) มีฟังก์ชันสำหรับ
+  แปลง `Option` เป็น slice ที่มีสมาชิก 0 หรือ 1 ตัว
 - [เอกสารประกอบของ `Option<T>`](https://doc.rust-lang.org/std/option/enum.Option.html)
